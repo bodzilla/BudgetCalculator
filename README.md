@@ -1,4 +1,5 @@
 # BudgetCalculator
-Simple UI that uses your spending allowance left over for the month to calculate your daily budget
 
-Add your cut off day in the config.
+Cut off date configuration is found in the App.Config
+
+![UI](https://i.imgur.com/3WsgEb9.png)
