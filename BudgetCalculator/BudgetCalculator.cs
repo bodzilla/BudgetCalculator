@@ -36,7 +36,7 @@ namespace BudgetCalculator
                 return;
             }
 
-            int daysLeft = payDate.DayOfYear - todayDate.DayOfYear;
+            int daysLeft = payDate.DayOfYear - todayDate.DayOfYear - 1; // Minus 1 to exclude the pay date.
             if (daysLeft <= 0) return;
             if (includeToday) daysLeft++;
             _dailyBudget = budgetRemaining / daysLeft;
