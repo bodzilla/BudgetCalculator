@@ -7,13 +7,13 @@ namespace BudgetCalculator
 {
     public partial class BudgetCalculator : Form
     {
-        private readonly int _cutOffDay = int.Parse(ConfigurationManager.AppSettings["CutOffDay"]);
         private double _dailyBudget;
 
         public BudgetCalculator()
         {
             InitializeComponent();
-            dtPayDate.Value = DateTime.Today.Day < _cutOffDay ? new DateTime(DateTime.Today.Year, DateTime.Today.Month, _cutOffDay) : new DateTime(DateTime.Today.Year, DateTime.Today.Month + 1, _cutOffDay);
+            int cutOffDay = int.Parse(ConfigurationManager.AppSettings["CutOffDay"]);
+            dtPayDate.Value = DateTime.Today.Day < cutOffDay ? new DateTime(DateTime.Today.Year, DateTime.Today.Month, cutOffDay) : new DateTime(DateTime.Today.Year, DateTime.Today.Month, cutOffDay).AddMonths(1);
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
@@ -36,7 +36,7 @@ namespace BudgetCalculator
                 return;
             }
 
-            int daysLeft = payDate.DayOfYear - todayDate.DayOfYear - 1; // Minus 1 to exclude the pay date.
+            int daysLeft = (int)(payDate - todayDate).TotalDays - 1; // Minus 1 to exclude the pay date.
             if (daysLeft <= 0) return;
             if (includeToday) daysLeft++;
             _dailyBudget = budgetRemaining / daysLeft;
